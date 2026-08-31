@@ -22,7 +22,6 @@ with st.form("loan_form"):
     col1, col2 = st.columns(2)
 
     with col1:
-        gender = st.selectbox("Gender", ["Male", "Female"])
         married = st.selectbox("Married", ["Yes", "No"])
         dependents = st.selectbox("Dependents", ["0", "1", "2", "3+"])
         education = st.selectbox("Education", ["Graduate", "Not Graduate"])
