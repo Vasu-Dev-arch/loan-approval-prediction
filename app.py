@@ -67,7 +67,7 @@ if submitted:
     else:
         st.error("Model prediction: **Loan Not Approved**")
 
-    st.warning("This prediction is for an academic demonstration and is not financial advice.")
+    # st.warning("This prediction is for an academic demonstration and is not financial advice.")
 
     with st.expander("See what you entered"):
         st.dataframe(row)
