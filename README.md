@@ -25,7 +25,6 @@ real applications.
 loan_approval/
 ├── data/
 │   ├── train.csv                  # final 3,000-row dataset used for modeling (has a `split` column)
-│   └── train_original_614.csv     # the original real dataset, kept for transparency
 ├── Loan_Approval_Prediction.ipynb # full notebook: EDA, preprocessing, modeling, evaluation
 ├── model/
 │   ├── loan_model.joblib          # saved sklearn Pipeline (preprocessing + tuned model)
@@ -65,7 +64,3 @@ streamlit run app.py
 Open and run `Loan_Approval_Prediction.ipynb` top to bottom — it regenerates `data/train.csv`
 and re-saves `model/loan_model.joblib`, which `app.py` loads directly.
 
-## Disclaimer
-
-This is an academic demonstration. Predictions are not financial advice and should not be used
-for real lending decisions.
