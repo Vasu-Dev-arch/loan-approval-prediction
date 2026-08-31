@@ -22,7 +22,9 @@ with st.form("loan_form"):
     col1, col2 = st.columns(2)
 
     with col1:
+        gender = st.selectbox("Gender", ["Male", "Female"])
         married = st.selectbox("Married", ["Yes", "No"])
+        dependents = st.selectbox("Dependents", ["0", "1", "2", "3+"])
         education = st.selectbox("Education", ["Graduate", "Not Graduate"])
         self_employed = st.selectbox("Self Employed", ["No", "Yes"])
         property_area = st.selectbox("Property Area", ["Urban", "Semiurban", "Rural"])
@@ -32,13 +34,14 @@ with st.form("loan_form"):
         coapplicant_income = st.number_input("Coapplicant Income (monthly)", min_value=0, value=0, step=500)
         loan_amount = st.number_input("Loan Amount (in thousands)", min_value=0, value=120, step=5)
         loan_term = st.number_input("Loan Amount Term (days)", min_value=12, value=360, step=12)
-        credit_history = st.selectbox("Credit History", ["Good (has repaid past debts)", "Poor / None"])
+        cibil_score = st.number_input(
+            "CIBIL Score", min_value=300, max_value=900, value=750, step=10,
+            help="India's credit bureau score, 300-900. Above ~750 is considered good.",
+        )
 
     submitted = st.form_submit_button("Predict")
 
 if submitted:
-    credit_history_val = 1 if credit_history.startswith("Good") else 0
-
     row = pd.DataFrame([{
         "Gender": gender,
         "Married": married,
@@ -49,7 +52,7 @@ if submitted:
         "CoapplicantIncome_log": np.log1p(coapplicant_income),
         "LoanAmount_log": np.log1p(loan_amount),
         "Loan_Amount_Term": loan_term,
-        "Credit_History": float(credit_history_val),
+        "Cibil_Score": float(cibil_score),
         "Property_Area": property_area,
     }])
 
@@ -64,7 +67,7 @@ if submitted:
     else:
         st.error("Model prediction: **Loan Not Approved**")
 
-    # st.warning("This prediction is for an academic demonstration and is not financial advice.")
+    st.warning("This prediction is for an academic demonstration and is not financial advice.")
 
     with st.expander("See what you entered"):
         st.dataframe(row)
